@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name | Data Analyst Portfolio</title>
+  <style>
+    /* ========== NEON GLOBAL STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0a0a0a;
+      font-family: 'Poppins', sans-serif;
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+
+    /* particles background canvas */
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Neon text utility */
+    .neon-text {
+      color: #fff;
+      text-shadow:
+        0 0 7px #0ff,
+        0 0 10px #0ff,
+        0 0 21px #0ff,
+        0 0 42px #0ff,
+        0 0 82px #0ff,
+        0 0 92px #0ff;
+    }
+
+    /* Neon box */
+    .neon-box {
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      background: rgba(10,10,10,0.9);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow:
+        0 0 5px rgba(0,255,255,0.2),
+        0 0 20px rgba(0,255,255,0.1),
+        inset 0 0 5px rgba(0,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    .neon-box:hover {
+      border-color: #0ff;
+      box-shadow:
+        0 0 10px #0ff,
+        0 0 40px #0ff;
+    }
+
+    /* Buttons */
+    .neon-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      margin: 0.5rem;
+      border: 1px solid #0ff;
+      color: #0ff;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .neon-btn:hover {
+      background: #0ff;
+      color: #0a0a0a;
+      box-shadow: 0 0 10px #0ff, 0 0 30px #0ff;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 0.5rem;
+    }
+
+    /* Projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .project-card {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .project-card h3 {
+      color: #0ff;
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+      text-shadow: 0 0 8px rgba(0,255,255,0.5);
+    }
+    .project-card p {
+      font-size: 0.95rem;
+      color: #aaa;
+      margin-bottom: 1rem;
+    }
+    .project-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      background: rgba(0,255,255,0.1);
+      border: 1px solid rgba(0,255,255,0.3);
+      color: #0ff;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    .project-card a {
+      align-self: flex-start;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .neon-box {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle canvas background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1 class="neon-text">YOUR NAME</h1>
+      <p>Data Analyst | Power BI • SQL • Python</p>
+      <div style="margin-top: 2rem;">
+        <a href="#projects" class="neon-btn">View Projects</a>
+        <a href="mailto:youremail@example.com" class="neon-btn">Contact Me</a>
+      </div>
+    </header>
+
+    <!-- Projects Section -->
+    <h2 style="text-align:center; margin-bottom: 2rem;" class="neon-text">🚀 My Data Science Projects</h2>
+    <div class="projects-grid" id="projectsGrid"></div>
+
+    <!-- Contact Section -->
+    <div class="contact neon-box" style="margin-top: 4rem;">
+      <h3 class="neon-text">Let's Work Together</h3>
+      <p style="margin: 1rem 0;">Got a project in mind? Let's turn your data into stories.</p>
+      <a href="mailto:youremail@example.com" class="neon-btn" style="margin: 0;">Say Hello</a>
+    </div>
+
+    <!-- Footer -->
+    <p style="text-align:center; margin-top: 3rem; color: #555;">© 2025 Your Name. Built with ❤️ and caffeine.</p>
+  </div>
+
+  <script>
+    // ========== PROJECTS DATA (ADD YOUR PROJECTS HERE) ==========
+    const projects = [
+      {
+        title: "SpaceX Missions Dashboard",
+        description: "Power BI dashboard analyzing 100k SpaceX launches, success rates, and payload trends.",
+        tags: ["Power BI", "DAX", "Data Modeling"],
+        link: "https://example.com/spacex-dashboard" // Replace with your actual project link
+      },
+      {
+        title: "Sales Insights Analysis",
+        description: "Cleaned and transformed messy Excel data into a dynamic sales dashboard for a retail client.",
+        tags: ["Excel", "Power Query", "Pivot Tables"],
+        link: "https://example.com/sales-dashboard"
+      },
+      {
+        title: "Customer Segmentation",
+        description: "Used Python & K-Means to segment e-commerce customers for targeted marketing.",
+        tags: ["Python", "Pandas", "Scikit-learn"],
+        link: "https://example.com/segmentation"
+      },
+      {
+        title: "SQL Business Reporting",
+        description: "Wrote complex SQL queries to extract monthly revenue reports from a 10M+ row database.",
+        tags: ["SQL", "MySQL", "Data Extraction"],
+        link: "https://example.com/sql-report"
+      }
+    ];
+
+    // Render projects
+    const grid = document.getElementById("projectsGrid");
+    projects.forEach(proj => {
+      const card = document.createElement("div");
+      card.className = "project-card neon-box";
+      card.innerHTML = `
+        <h3>${proj.title}</h3>
+        <p>${proj.description}</p>
+        <div class="tags">${proj.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <a href="${proj.link}" target="_blank" class="neon-btn">View Project</a>
+      `;
+      grid.appendChild(card);
+    });
+
+    // ========== PARTICLE BACKGROUND ==========
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 255, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles(count = 120) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Redraw particles on resize
+    window.addEventListener('resize', () => {
+      initParticles(120);
+    });
+  </script>
+</body>
+</html>
